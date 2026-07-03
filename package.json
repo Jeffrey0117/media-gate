@@ -1,0 +1,21 @@
+{
+  "name": "media-gate",
+  "version": "0.1.0",
+  "description": "自架媒體站的存取防護 — 簽章 token + 路徑穿越防護 + HLS 授權。零依賴、框架無關。讓影片/HLS 內容不能被直連下載繞過付費牆。",
+  "main": "index.js",
+  "scripts": {
+    "example": "node example.js"
+  },
+  "keywords": [
+    "media",
+    "paywall",
+    "signed-url",
+    "hls",
+    "access-control",
+    "self-hosted",
+    "path-traversal",
+    "hmac"
+  ],
+  "author": "Jeffrey0117",
+  "license": "MIT"
+}
