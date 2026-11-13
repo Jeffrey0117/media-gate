@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="logo.svg" width="96" height="96" alt="media-gate logo">
+</p>
+
 # media-gate 🔒
 
 **自架媒體站的存取防護。** 讓影片/HLS 內容**不能被直連下載繞過付費牆**。
