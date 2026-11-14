@@ -43,9 +43,14 @@ module.exports = function createMediaGate(opts = {}) {
       const expected = crypto.createHmac('sha256', secret).update(b64).digest('base64url');
       const a = Buffer.from(sig), b = Buffer.from(expected);
       if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) return null;
-      const [resourceId, subjectId, exp] = Buffer.from(b64, 'base64url').toString('utf8').split(sep);
-      if (!resourceId || !exp || Date.now() > Number(exp)) return null;
-      return { resourceId, subjectId, exp: Number(exp) };
+      // 一定要剛好三段、到期時間一定要是數字：id 裡含分隔字元會讓欄位錯位，
+      // 到期時間變成 NaN（Date.now() > NaN 是 false → 永不過期）或被 id 的尾巴冒充。
+      const parts = Buffer.from(b64, 'base64url').toString('utf8').split(sep);
+      if (parts.length !== 3) return null;
+      const [resourceId, subjectId] = parts;
+      const exp = Number(parts[2]);
+      if (!resourceId || !Number.isFinite(exp) || Date.now() > exp) return null;
+      return { resourceId, subjectId, exp };
     } catch (e) { return null; }
   }
 
